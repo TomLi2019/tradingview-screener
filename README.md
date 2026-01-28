@@ -1,4 +1,3 @@
-
 [![PyPi](https://img.shields.io/badge/PyPi-2.4.0-yellow)](https://pypi.org/project/tradingview-screener/)
 [![Downloads](https://static.pepy.tech/badge/tradingview-screener)](https://pepy.tech/project/tradingview-screener)
 [![Downloads](https://static.pepy.tech/badge/tradingview-screener/month)](https://pepy.tech/project/tradingview-screener)
@@ -32,9 +31,11 @@ from tradingview_screener import Scanner
 ```
 
 Some of the pre-built scanners:
+
 ```python
 >>> Scanner.names()
 ```
+
 ```
 ['premarket_gainers',
  'premarket_losers',
@@ -46,14 +47,17 @@ Some of the pre-built scanners:
 ```
 
 Say we want to get the Pre-Market Gainers:
+
 ```python
 n_rows, df = Scanner.premarket_gainers.get_scanner_data()
 ```
 
 And we get a DataFrame with the data:
+
 ```python
 >>> df
 ```
+
 ```
          ticker  name  ...  premarket_change_abs  premarket_volume
 0   NASDAQ:APLM  APLM  ...               0.72200          30551043
@@ -72,9 +76,11 @@ And we get a DataFrame with the data:
 ```
 
 With the following columns:
+
 ```python
 >>> df.columns
 ```
+
 ```
 Index(['ticker', 'name', 'close', 'volume', 'market_cap_basic',
        'premarket_change', 'premarket_change_abs', 'premarket_volume'],
@@ -82,9 +88,11 @@ Index(['ticker', 'name', 'close', 'volume', 'market_cap_basic',
 ```
 
 If you aren't yet familiar with Pandas DataFrames, you can convert the output to a list of dictionaries like so:
+
 ```python
 >>> df.to_dict('records')[:10]
 ```
+
 ```
 [
     {'ticker': 'NASDAQ:APLM', 'name': 'APLM', 'close': 0.862, 'volume': 94235502, 'market_cap_basic': 146422699.0, 'premarket_change': 127.11267606, 'premarket_change_abs': 0.722, 'premarket_volume': 30551043}
@@ -102,13 +110,14 @@ If you aren't yet familiar with Pandas DataFrames, you can convert the output to
 from tradingview_screener import Query, Column
 ```
 
-
 Create a query (like you would in a SQL database):
+
 ```python
 (Query()
  .select('name', 'close', 'volume', 'relative_volume_10d_calc', 'market_cap_basic')
  .get_scanner_data())
 ```
+
 ```
 (18060,
           ticker  name  ...  relative_volume_10d_calc  market_cap_basic
@@ -126,15 +135,14 @@ Create a query (like you would in a SQL database):
  [50 rows x 6 columns])
 ```
 
-Our dataframe only contains 50 rows, even though there are 5271 rows in total. 
-This is because the default LIMIT is 50, but you can change that if you need to. 
-Just keep in mind that the more rows you request, the heavier the load you're putting on the server, and the longer 
-it will take to respond. 
+Our dataframe only contains 50 rows, even though there are 5271 rows in total.
+This is because the default LIMIT is 50, but you can change that if you need to.
+Just keep in mind that the more rows you request, the heavier the load you're putting on the server, and the longer
+it will take to respond.
 And if you request too many rows, you might even get banned, so don't get crazy.
 
-
-
 A more elaborate query:
+
 ```python
 (Query()
  .select('name', 'close', 'volume', 'relative_volume_10d_calc')
@@ -148,6 +156,7 @@ A more elaborate query:
  .limit(25)
  .get_scanner_data())
 ```
+
 ```
 (393,
           ticker  name     close    volume  relative_volume_10d_calc
@@ -169,13 +178,13 @@ For more examples have a look [here](https://shner-elmo.github.io/TradingView-Sc
 
 ---
 
-
 # How it works
 
 When you call a method like `select()` or `where()` on the `Query` object,
 it updates a dictionary that contains all the data to send to the API.
 
 For example, the previous query creates the following dictionary:
+
 ```py
 {
     'markets': ['america'],
@@ -194,5 +203,17 @@ For example, the previous query creates the following dictionary:
 
 When the `get_scanner_data()` method is called, it will dump that dictionary as a JSON and send it to the API.
 
-Using this package, you can access and query TradingView data with a simple SQL syntax, without needing to know the 
+Using this package, you can access and query TradingView data with a simple SQL syntax, without needing to know the
 details of TradingView's API.
+
+"1\nREVELSTONE CAPITAL ACQSTN CORP\nRCAC\n+91.15%\n10.80\n2\nZoomcar Holdings, Inc.\nZCAR\n+64.85%\n4.220\n3\nA\nAinos Inc\nAIMD\n+58.38%\n2.740\n4\nBanzai International Inc.\nBNZI\n+54.82%\n2.570\n5\nS\nSafe & Green Development Corp\nSGD\n+49.26%\n2.030\n6\nElevation Oncolo\nELEV\n+47.81%\n0.8746\n7\nWearable Devices Ltd.\nWLDS\n+31.45%\n0.4995\n8\nSWVL HOLDINGS CORP\nSWVL\n+31.45%\n3.010\n9\nAurora Mobile Limited\nJG\n+28.44%\n4.110\n10\nDuos Technologies Group Inc\nDUOT\n+26.91%\n2.570"
+
+### start mongodb manually:
+
+mongod --config /usr/local/etc/mongod.conf --fork
+
+/usr/local/bin/python3.9 /Volumes/1TBSSD/projects/inspiringai/TradingView-Screener/tests/webull_scan.py
+
+/usr/local/bin/python3.9 /Volumes/1TBSSD/projects/inspiringai/TradingView-Screener/tests/trade_alert.py
+
+/usr/local/bin/python3.9 /Volumes/1TBSSD/projects/inspiringai/TradingView-Screener/tests/test_query.py

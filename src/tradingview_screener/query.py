@@ -3,12 +3,12 @@ from __future__ import annotations
 __all__ = ['Query', 'Column']
 
 import pprint
-from typing import TypedDict, Any, Literal
+from typing import Any, Literal, TypedDict
 
-import requests
 import pandas as pd
+import requests
 
-from tradingview_screener.constants import COLUMNS, MARKETS, HEADERS, URL
+from tradingview_screener.constants import COLUMNS, HEADERS, MARKETS, URL
 
 
 class FilterOperationDict(TypedDict):
@@ -363,7 +363,7 @@ class Query:
         This method allows you to select the market/s which you want to query.
 
         By default, the screener will only scan US equities, but you can change it to scan any
-        or even multiple markets, that includes a list of 67 countries, and also the following 
+        or even multiple markets, that includes a list of 67 countries, and also the following
         commodities: `bonds`, `cfd`, `coin`, `crypto`, `economics2`, `euronext`, `forex`,
         `futures`, `options`.
 

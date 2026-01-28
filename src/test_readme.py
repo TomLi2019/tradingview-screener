@@ -27,8 +27,13 @@ def test_readme_examples():
     # try executing the code, if any of the examples fail than so will this script
     exec(code)
 
+def main():
+    # Your main execution logic goes here
+    print("Hello, this is the main function.")
+    test_readme_examples()
 
 if __name__ == '__main__':
     main()
 
 # TODO: add this to CI/CD (with GH actions)
+
