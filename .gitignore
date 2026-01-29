@@ -4,3 +4,4 @@ env
 notes.txt
 .env.local
 .env
+src/did.bin
