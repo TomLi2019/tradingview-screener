@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -77,6 +77,14 @@ function Row({ label, value }: { label: string; value: string | React.ReactNode 
 }
 
 export default function StockPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40, color: '#aaa' }}>Loading...</div>}>
+      <StockPageContent />
+    </Suspense>
+  );
+}
+
+function StockPageContent() {
   const searchParams = useSearchParams();
   const symbol = searchParams.get('symbol') || '';
   const [data, setData] = useState<Fundamentals | null>(null);

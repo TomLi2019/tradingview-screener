@@ -129,8 +129,8 @@ export default function Dashboard() {
         va = getUnrealizedPnl(a) ?? -Infinity;
         vb = getUnrealizedPnl(b) ?? -Infinity;
       } else {
-        va = (a as Record<string, unknown>)[key] as string | number ?? '';
-        vb = (b as Record<string, unknown>)[key] as string | number ?? '';
+        va = (a as unknown as Record<string, unknown>)[key] as string | number ?? '';
+        vb = (b as unknown as Record<string, unknown>)[key] as string | number ?? '';
       }
       if (typeof va === 'string' && typeof vb === 'string') return va.localeCompare(vb) * mult;
       return ((va as number) - (vb as number)) * mult;
@@ -180,8 +180,8 @@ export default function Dashboard() {
     const { key, dir } = closedSort.sort;
     const mult = dir === 'asc' ? 1 : -1;
     return list.sort((a, b) => {
-      const va = (a as Record<string, unknown>)[key] as string | number ?? '';
-      const vb = (b as Record<string, unknown>)[key] as string | number ?? '';
+      const va = (a as unknown as Record<string, unknown>)[key] as string | number ?? '';
+      const vb = (b as unknown as Record<string, unknown>)[key] as string | number ?? '';
       if (typeof va === 'string' && typeof vb === 'string') return va.localeCompare(vb) * mult;
       return ((va as number) - (vb as number)) * mult;
     });
